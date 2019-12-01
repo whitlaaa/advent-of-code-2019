@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	file, _ := os.Open("./input1.txt")
+	file, _ := os.Open("./input.txt")
 	scanner := bufio.NewScanner(file)
 
 	sum1 := 0
