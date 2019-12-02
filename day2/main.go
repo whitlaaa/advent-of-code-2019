@@ -13,12 +13,22 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	program := getProgram(strings.Split(string(bytes), ","))
 
-	fmt.Println("Part 1: ", runProgram(program, 12, 2))
+	fmt.Println("Part 1: ", runProgram(bytes, 12, 2))
+
+	// Part 2
+	originalResult := runProgram(bytes, 0, 0)
+	const targetResult int = 19690720
+	nounWeight := runProgram(bytes, 1, 0) - originalResult
+	verbWeight := runProgram(bytes, 0, 1) - originalResult
+	noun := (targetResult - originalResult) / nounWeight
+	verb := ((targetResult - originalResult) % noun) / verbWeight
+
+	fmt.Printf("Part 2: noun = %d, verb = %d, answer = %d\n", noun, verb, (100*noun)+verb)
 }
 
-func runProgram(program []int, noun int, verb int) int {
+func runProgram(bytes []byte, noun int, verb int) int {
+	program := getProgram(strings.Split(string(bytes), ","))
 	length := len(program)
 
 	program[1] = noun
