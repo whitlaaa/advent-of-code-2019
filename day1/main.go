@@ -21,28 +21,28 @@ func main() {
 	sum2 := 0
 	for scanner.Scan() {
 		mass, _ := strconv.Atoi(scanner.Text())
-		sum1 += getModFuel1(mass)
-		sum2 += getModFuel2(mass)
+		sum1 += getModuleFuel(mass, false)
+		sum2 += getModuleFuel(mass, true)
 	}
 
 	fmt.Println("Part 1: ", sum1)
 	fmt.Println("Part 2: ", sum2)
 }
 
-func getModFuel1(mass int) int {
-	return calcFuel(mass)
-}
+func getModuleFuel(mass int, includeFuel bool) int {
+	if !includeFuel {
+		return calcFuel(mass)
+	} else {
+		totalFuel := calcFuel(mass)
 
-func getModFuel2(mass int) int {
-	totalFuel := calcFuel(mass)
+		fuel := calcFuel(totalFuel)
+		for fuel > 0 {
+			totalFuel += fuel
+			fuel = calcFuel(fuel)
+		}
 
-	fuel := calcFuel(totalFuel)
-	for fuel > 0 {
-		totalFuel += fuel
-		fuel = calcFuel(fuel)
+		return totalFuel
 	}
-
-	return totalFuel
 }
 
 func calcFuel(mass int) int {

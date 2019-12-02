@@ -14,6 +14,7 @@ func main() {
 		log.Fatal(err)
 	}
 
+	// Part 1
 	fmt.Println("Part 1: ", runProgram(bytes, 12, 2))
 
 	// Part 2
@@ -34,7 +35,7 @@ func runProgram(bytes []byte, noun int, verb int) int {
 	program[1] = noun
 	program[2] = verb
 
-	for i := 0; i < length; i = i + 4 {
+	for i := 0; i < length; i += 4 {
 		opCode := program[i]
 		input1 := program[program[i+1]]
 		input2 := program[program[i+2]]
@@ -48,7 +49,7 @@ func runProgram(bytes []byte, noun int, verb int) int {
 		} else if opCode == 99 {
 			break
 		} else {
-			log.Fatalf("Invalid opcode: %d", opCode)
+			log.Fatalln("Invalid opcode: ", opCode)
 		}
 
 		program[outputPos] = opResult
