@@ -2,13 +2,19 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 	"strconv"
 )
 
 func main() {
-	file, _ := os.Open("./input.txt")
+	file, err := os.Open("input.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
 	scanner := bufio.NewScanner(file)
 
 	sum1 := 0
@@ -19,8 +25,8 @@ func main() {
 		sum2 += getModFuel2(mass)
 	}
 
-	log.Printf("Part 1: %d", sum1)
-	log.Printf("Part 2: %d", sum2)
+	fmt.Println("Part 1: ", sum1)
+	fmt.Println("Part 2: ", sum2)
 }
 
 func getModFuel1(mass int) int {
