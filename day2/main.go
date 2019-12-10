@@ -14,13 +14,18 @@ func main() {
 	}
 
 	// Part 1
-	fmt.Println("Part 1: ", intcode.RunProgram(bytes, 12, 2))
+	part1 := intcode.PrepareProgram(bytes, 12, 2)
+	fmt.Println("Part 1: ", intcode.RunProgram(part1))
 
 	// Part 2
-	originalResult := intcode.RunProgram(bytes, 0, 0)
+	ogProgram := intcode.PrepareProgram(bytes, 0, 0)
+	originalResult := intcode.RunProgram(ogProgram)
 	const targetResult int = 19690720
-	nounWeight := intcode.RunProgram(bytes, 1, 0) - originalResult
-	verbWeight := intcode.RunProgram(bytes, 0, 1) - originalResult
+
+	nounProgram := intcode.PrepareProgram(bytes, 1, 0)
+	nounWeight := intcode.RunProgram(nounProgram) - originalResult
+	verbProgram := intcode.PrepareProgram(bytes, 0, 1)
+	verbWeight := intcode.RunProgram(verbProgram) - originalResult
 	noun := (targetResult - originalResult) / nounWeight
 	verb := ((targetResult - originalResult) % noun) / verbWeight
 
