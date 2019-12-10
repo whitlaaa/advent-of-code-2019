@@ -29,8 +29,8 @@ func PrepareProgram(bytes []byte, noun int, verb int) []string {
 func RunProgram(input []string) int {
 	program := formatInput(input)
 
-	for i := 0; i < len(program); {
-		opCode := program[i]
+	for i := 0; i < len(input); {
+		opCode := getOpCode(input[i])
 		outputPos := program[i+3]
 
 		var opResult int
@@ -57,6 +57,16 @@ func RunProgram(input []string) int {
 	}
 
 	return program[0]
+}
+
+func getOpCode(instruction string) (opcode int) {
+	if len(instruction) > 1 {
+		opcode, _ = strconv.Atoi(instruction[len(instruction)-2:])
+	} else {
+		opcode, _ = strconv.Atoi(instruction)
+	}
+
+	return
 }
 
 func formatInput(input []string) []int {
